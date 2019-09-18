@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seed.mapper.SystemLogMapper">
+  <resultMap id="BaseResultMap" type="seed.entity.SystemLog">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="data_id" jdbcType="BIGINT" property="dataId" />
+    <result column="data_name" jdbcType="VARCHAR" property="dataName" />
+    <result column="request" jdbcType="VARCHAR" property="request" />
+    <result column="response" jdbcType="VARCHAR" property="response" />
+    <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="creator_time" jdbcType="TIMESTAMP" property="creatorTime" />
+    <result column="modifier_id" jdbcType="BIGINT" property="modifierId" />
+    <result column="modifier_name" jdbcType="VARCHAR" property="modifierName" />
+    <result column="modifier_time" jdbcType="TIMESTAMP" property="modifierTime" />
+  </resultMap>
+
+  <!-- 配置数据库表名称 -->
+  <sql id="table">`tb_system_log`</sql>
+
+
+  <!-- 配置数据库表主键字段名称  -->
+  <sql id="pk_col">`tb_system_log`.`id`</sql>
+
+  <!-- 配置实体主键字段 -->
+  <sql id="pk_prop">#{id}</sql>
+
+  <!-- 配置数据库表字段列表信息 -->
+  <sql id="cols">
+    <include refid="table"/>.`id`,
+    <include refid="table"/>.`action`,
+    <include refid="table"/>.`permission`,
+    <include refid="table"/>.`content`,
+    <include refid="table"/>.`data_id`,
+    <include refid="table"/>.`data_name`,
+    <include refid="table"/>.`request`,
+    <include refid="table"/>.`response`,
+    <include refid="table"/>.`creator_id`,
+    <include refid="table"/>.`creator_name`,
+    <include refid="table"/>.`creator_time`,
+    <include refid="table"/>.`modifier_id`,
+    <include refid="table"/>.`modifier_name`,
+    <include refid="table"/>.`modifier_time`
+  </sql>
+
+  <!-- 配置实体类属性信息 -->
+  <sql id="props">
+    #{id},
+    #{action},
+    #{permission},
+    #{content},
+    #{dataId},
+    #{dataName},
+    #{request},
+    #{response},
+    #{creatorId},
+    #{creatorName},
+    #{creatorTime},
+    #{modifierId},
+    #{modifierName},
+    #{modifierTime}
+  </sql>
+
+
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select  <include refid="cols" />
+    from <include refid="table"/>
+    where
+    <include refid="pk_col"/>
+    =
+    <include refid="pk_prop"/>
+  </select>
+
+  <insert id="save" parameterType="seed.entity.SystemLog" keyProperty="id">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      select gen_ticket64() as ticket
+    </selectKey>
+    INSERT INTO
+    <include refid="table"/>
+    (<include refid="cols"/>)
+    VALUES (<include refid="props"/>)
+  </insert>
+
+
+  <select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="cols"/>
+    from
+    <include refid="table"/>
+
+    order by <include refid="table"/>.`creator_time` desc
+    <if test="size > 0">
+      limit ${page},${size}
+    </if>
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select
+    count(1)
+    from
+    <include refid="table"/>
+  </select>
+
+</mapper>

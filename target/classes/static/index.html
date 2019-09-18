@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang=zh-cmn-Hans><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/logo.png><title>Bug管理系统</title><style>#loading-mask {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: #fff;
+      user-select: none;
+      z-index: 9999;
+      overflow: hidden
+    }
+
+    .loading-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%)
+    }
+
+    .loading-dot {
+      animation: antRotate 1.2s infinite linear;
+      transform: rotate(45deg);
+      position: relative;
+      display: inline-block;
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      box-sizing: border-box
+    }
+
+    .loading-dot i {
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      display: block;
+      background-color: #1890ff;
+      border-radius: 100%;
+      transform: scale(.75);
+      transform-origin: 50% 50%;
+      opacity: .3;
+      animation: antSpinMove 1s infinite linear alternate
+    }
+
+    .loading-dot i:nth-child(1) {
+      top: 0;
+      left: 0
+    }
+
+    .loading-dot i:nth-child(2) {
+      top: 0;
+      right: 0;
+      -webkit-animation-delay: .4s;
+      animation-delay: .4s
+    }
+
+    .loading-dot i:nth-child(3) {
+      right: 0;
+      bottom: 0;
+      -webkit-animation-delay: .8s;
+      animation-delay: .8s
+    }
+
+    .loading-dot i:nth-child(4) {
+      bottom: 0;
+      left: 0;
+      -webkit-animation-delay: 1.2s;
+      animation-delay: 1.2s
+    }
+
+    @keyframes antRotate {
+      to {
+        -webkit-transform: rotate(405deg);
+        transform: rotate(405deg)
+      }
+    }
+
+    @-webkit-keyframes antRotate {
+      to {
+        -webkit-transform: rotate(405deg);
+        transform: rotate(405deg)
+      }
+    }
+
+    @keyframes antSpinMove {
+      to {
+        opacity: 1
+      }
+    }
+
+    @-webkit-keyframes antSpinMove {
+      to {
+        opacity: 1
+      }
+    }</style><link href=/css/chunk-04760c4e.5cf9dc5e.css rel=prefetch><link href=/css/chunk-0e7eb8dd.449f1798.css rel=prefetch><link href=/css/chunk-2a0140fb.0392a82f.css rel=prefetch><link href=/css/chunk-3c3bb673.0279ace5.css rel=prefetch><link href=/css/chunk-525150e0.c083384e.css rel=prefetch><link href=/css/chunk-59fd3d6c.24b29c30.css rel=prefetch><link href=/css/chunk-701ff3e0.d79507ec.css rel=prefetch><link href=/css/chunk-730c0ea5.c16a4a0a.css rel=prefetch><link href=/css/chunk-78a5f234.c99402e4.css rel=prefetch><link href=/css/chunk-7a2e6fdc.28e13c15.css rel=prefetch><link href=/css/chunk-8f3fd2ec.5aab7817.css rel=prefetch><link href=/css/chunk-90a3435c.53d9bd47.css rel=prefetch><link href=/css/chunk-98ed26c4.7619112b.css rel=prefetch><link href=/css/chunk-bfd504a4.25c080c6.css rel=prefetch><link href=/css/user.4547c497.css rel=prefetch><link href=/js/chunk-04760c4e.54ec46b7.js rel=prefetch><link href=/js/chunk-0e7eb8dd.4efcfae9.js rel=prefetch><link href=/js/chunk-2a0140fb.5a574505.js rel=prefetch><link href=/js/chunk-2d0d2ee4.b5fd5236.js rel=prefetch><link href=/js/chunk-2d0d5f54.47a0f46a.js rel=prefetch><link href=/js/chunk-2d213108.206c0dc5.js rel=prefetch><link href=/js/chunk-313c900e.18b5c3ea.js rel=prefetch><link href=/js/chunk-3c3bb673.7cf84aa6.js rel=prefetch><link href=/js/chunk-525150e0.e2a10c59.js rel=prefetch><link href=/js/chunk-59fd3d6c.c680d43b.js rel=prefetch><link href=/js/chunk-701ff3e0.59895677.js rel=prefetch><link href=/js/chunk-730c0ea5.65a1f940.js rel=prefetch><link href=/js/chunk-78a5f234.51632931.js rel=prefetch><link href=/js/chunk-7a2e6fdc.ac449b58.js rel=prefetch><link href=/js/chunk-7b41d794.98b4db0e.js rel=prefetch><link href=/js/chunk-8f3fd2ec.b836377a.js rel=prefetch><link href=/js/chunk-90a3435c.b115786e.js rel=prefetch><link href=/js/chunk-98ed26c4.e017bb8a.js rel=prefetch><link href=/js/chunk-bfd504a4.bf42a71e.js rel=prefetch><link href=/js/chunk-e5493bd6.ba0df713.js rel=prefetch><link href=/js/fail.0fa667f2.js rel=prefetch><link href=/js/user.16b43039.js rel=prefetch><link href=/css/app.37ce86da.css rel=preload as=style><link href=/css/chunk-vendors.5d295dee.css rel=preload as=style><link href=/js/app.611e049f.js rel=preload as=script><link href=/js/chunk-vendors.7a708269.js rel=preload as=script><link href=/css/chunk-vendors.5d295dee.css rel=stylesheet><link href=/css/app.37ce86da.css rel=stylesheet></head><body><noscript><strong>We're sorry but vue-antd-pro doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app><div id=loading-mask><div class=loading-wrapper><span class="loading-dot loading-dot-spin"><i></i><i></i><i></i><i></i></span></div></div></div><script src=/js/chunk-vendors.7a708269.js></script><script src=/js/app.611e049f.js></script></body></html>

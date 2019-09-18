@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seed.mapper.BugLogMapper">
+  <resultMap id="BaseResultMap" type="seed.entity.BugLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="bug_id" jdbcType="BIGINT" property="bugId" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="annex" jdbcType="VARCHAR" property="annex" />
+    <result column="assign_id" jdbcType="BIGINT" property="assignId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="creator_id" jdbcType="BIGINT" property="creatorId" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="creator_time" jdbcType="TIMESTAMP" property="creatorTime" />
+    <result column="modifier_id" jdbcType="BIGINT" property="modifierId" />
+    <result column="modifier_name" jdbcType="VARCHAR" property="modifierName" />
+    <result column="modifier_time" jdbcType="TIMESTAMP" property="modifierTime" />
+    <association property="assign" javaType="seed.entity.User"
+                 resultMap="seed.mapper.UserMapper.BaseResultMap" columnPrefix="assign_">
+    </association>
+  </resultMap>
+
+  <!-- 配置数据库表名称 -->
+  <sql id="table">`tb_bug_log`</sql>
+
+  <!-- 配置数据库表名称 -->
+  <sql id="table_user">`tb_user`</sql>
+
+  <!-- 配置数据库表主键字段名称  -->
+  <sql id="pk_col">`tb_bug_log`.`id`</sql>
+
+  <!-- 配置实体主键字段 -->
+  <sql id="pk_prop">#{id}</sql>
+
+  <!-- 配置数据库表字段列表信息 -->
+  <sql id="cols">
+    <include refid="table"/>.`id`,
+    <include refid="table"/>.`bug_id`,
+    <include refid="table"/>.`describe`,
+    <include refid="table"/>.`annex`,
+    <include refid="table"/>.`assign_id`,
+    <include refid="table"/>.`status`,
+    <include refid="table"/>.`parent_id`,
+    <include refid="table"/>.`creator_id`,
+    <include refid="table"/>.`creator_name`,
+    <include refid="table"/>.`creator_time`,
+    <include refid="table"/>.`modifier_id`,
+    <include refid="table"/>.`modifier_name`,
+    <include refid="table"/>.`modifier_time`
+  </sql>
+
+  <!-- 配置数据库表字段列表信息 -->
+  <sql id="cols_list">
+    <include refid="table"/>.`id`,
+    <include refid="table"/>.`bug_id`,
+    <include refid="table"/>.`describe`,
+    <include refid="table"/>.`annex`,
+    <include refid="table"/>.`assign_id`,
+    <include refid="table"/>.`status`,
+    <include refid="table"/>.`parent_id`,
+    <include refid="table"/>.`creator_id`,
+    <include refid="table"/>.`creator_name`,
+    <include refid="table"/>.`creator_time`,
+    <include refid="table"/>.`modifier_id`,
+    <include refid="table"/>.`modifier_name`,
+    <include refid="table"/>.`modifier_time`
+  </sql>
+
+  <!-- 配置实体类属性信息 -->
+  <sql id="props">
+    #{id},
+    #{bugId},
+    #{describe},
+    #{annex},
+    #{assignId},
+    #{status},
+    #{parentId},
+    #{creatorId},
+    #{creatorName},
+    #{creatorTime},
+    #{modifierId},
+    #{modifierName},
+    #{modifierTime}
+  </sql>
+
+  <!-- 配置数据库表字段列表信息 -->
+  <sql id="assign_cols">
+    <include refid="table_user"/>.`id` as assign_id,
+    <include refid="table_user"/>.`name` as assign_name,
+    <include refid="table_user"/>.`account` as assign_account
+  </sql>
+
+
+  <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select  <include refid="cols" />
+    from <include refid="table"/>
+    where
+    <include refid="pk_col"/>
+    =
+    <include refid="pk_prop"/>
+  </select>
+
+  <insert id="save" parameterType="seed.entity.BugLog" keyProperty="id">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      select gen_ticket64() as ticket
+    </selectKey>
+    INSERT INTO
+    <include refid="table"/>
+    (<include refid="cols"/>)
+    VALUES (<include refid="props"/>)
+  </insert>
+
+
+  <select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="cols_list"/>,
+    <include refid="assign_cols"/>
+    from
+    <include refid="table"/>
+    LEFT JOIN
+    <include refid="table_user"/>
+    on
+    <include refid="table_user"/>.id = <include refid="table"/>.assign_id
+    where bug_id = #{bugId}
+    order by<include refid="table"/>.`id` ASC
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select
+    count(1)
+    from
+    <include refid="table"/>
+    where bug_id = #{bugId}
+  </select>
+
+</mapper>
