@@ -254,42 +254,21 @@ public class BugController {
         data.setName("BUG报表");
         SimpleDateFormat fdate=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        String titleStr ="Bug编号,发生客户,发生地,发生厂区,生产机型,项目阶段,项目编号,项目,影响版本,模块,Bug类型,Bug标题,问题描述,原因分析,解决措施,严重程度" +
+                ",优先级,负责部门,负责人,反馈日期,开始时间,要求解决时间,实际解决日期,处理周期,工时损耗,当前进度,状态,提出部门,创建人,备注";
+        String[] titlesArray =titleStr.split(",");
+
         //添加表头
         List<String> titles = new ArrayList();
-        titles.add("编号");
-        titles.add("项目");
-        titles.add("模块");
-        titles.add("版本");
-        titles.add("类型");
-        titles.add("硬件平台");
-        titles.add("操作系统");
-        titles.add("浏览器");
-        titles.add("标题");
-        titles.add("开始时间");
-        titles.add("要求解决时间");
-        titles.add("所有周期");
-        titles.add("创建者");
-        titles.add("负责人");
-        titles.add("状态");
-
+        for(int i=0;i<titlesArray.length;i++){
+            titles.add(titlesArray[i]);
+        }
         data.setTitles(titles);
 
         if(list.size()==0){
             List<List<Object>> rows = new ArrayList();
             List<Object> row =new ArrayList();
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
-            row.add("");
+            titles.forEach(title->row.add(""));
             rows.add(row);
             data.setRows(rows);
         }else{
@@ -298,23 +277,38 @@ public class BugController {
             for (Bug bug:list) {
                 List<Object> row =new ArrayList();
                 row.add(bug.getCode());
+                row.add("");
+                row.add("");
+                row.add("");
+                row.add("");
+                row.add("");
+                row.add("");
                 row.add(bug.getProject());
-                row.add(bug.getModel());
                 row.add(bug.getEdition());
+                row.add(bug.getModel());
                 row.add(bug.getType());
-                row.add(bug.getHardwarePlatform());
-                row.add(bug.getOperatingSystem());
-                row.add(bug.getBrowser());
                 row.add(bug.getTitle());
-                row.add(fdate.format(bug.getStartTime()));
-                row.add(fdate.format(bug.getSettlingTime()));
-                row.add(bug.getAllCycles());
-                row.add(bug.getCreatorName());
-               User leading = userService.get(bug.getLeadingId());
+                row.add(bug.getDescribe());
+                row.add("");
+                row.add("");
+                row.add(service.getNameBySeverity(Integer.parseInt(bug.getSeverity())));
+                row.add(service.getNameByPriority(Integer.parseInt(bug.getPriority())));
+                row.add("");
+                User leading = userService.get(bug.getLeadingId());
                 if(leading!=null){
                     row.add(leading.getName());
                 }
+                row.add("");
+                row.add(fdate.format(bug.getStartTime()));
+                row.add(fdate.format(bug.getSettlingTime()));
+                row.add("");
+                row.add(bug.getAllCycles());
+                row.add("");
+                row.add("");
                 row.add(service.getNameByStatus(bug.getStatus()));
+                row.add("");
+                row.add(bug.getCreatorName());
+                row.add("");
                 rows.add(row);
                 data.setRows(rows);
             }
