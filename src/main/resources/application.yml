@@ -1,0 +1,68 @@
+server:
+  #系统端口号
+  port: 83
+
+#spring配置
+spring:
+  #sql数据库配置
+  datasource:
+    name: test
+    url: jdbc:mysql://47.107.170.72:3306/bug_db?useUnicode=true&&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: yibin0125
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      connection-init-sqls: set names utf8mb4;
+      max-active: 20
+      initial-size: 1
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      stat:
+        log-slow-sql: true
+        slow-sql-millis: 1000
+      use-global-data-source-stat: true
+
+  #邮箱配置
+  mail:
+    host: hwhzsmtp.qiye.163.com
+    username: bugs@itc-auto.com
+    password: HfMuGbC2PxZ8qxdq
+    protocol: smtp
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465
+    properties.mail.display.sendmail: Javen
+    properties.mail.display.sendname: Spring Boot Guide Email
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+    from: bugs@itc-auto.com
+
+  #redis配置
+  redis:
+    database: 0
+    host: 47.107.170.72
+    port: 6379
+    password: yibin0125
+    lettuce:
+      pool-max-active: 8
+      pool-max-wait: -1
+      pool-max-idle: 80
+      pool-min-idle: 0
+
+#mybatis配置
+mybatis:
+    aliasesPackage: seed.entity
+    mapperLocations: classpath:mapper/*Mapper.xml
+
+
+
